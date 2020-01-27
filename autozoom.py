@@ -7,7 +7,7 @@ import base64
 import cupy
 import cv2
 import flask
-import getopt
+import argparse
 import gevent
 import gevent.pywsgi
 import h5py
@@ -49,12 +49,22 @@ exec(open('./models/pointcloud-inpainting.py', 'r').read())
 
 ##########################################################
 
-arguments_strIn = './images/doublestrike.jpg'
-arguments_strOut = './autozoom.mp4'
 
-for strOption, strArgument in getopt.getopt(sys.argv[1:], '', [ strParameter[2:] + '=' for strParameter in sys.argv[1::2] ])[0]:
-	if strOption == '--in' and strArgument != '': arguments_strIn = strArgument # path to the input image
-	if strOption == '--out' and strArgument != '': arguments_strOut = strArgument # path to where the output should be stored
+# construct the argument parse and parse the arguments
+ap = argparse.ArgumentParser()
+ap.add_argument("--in", required=True,
+	help="path to the input image", type="str", default="./images/doublestrike.jpg")
+ap.add_argument("--out", required=True,
+	help="path to where the output should be stored", type="str", default="./autozoom.mp4")
+ap.add_argument("--dblShift", required=False,
+	help="dblShift", type="float", default=100.0)
+ap.add_argument("--dblZoom", required=False,
+	help="dblZoom", type="float", default=1.25)
+ap.add_argument("--dblSteps", required=False,
+	help="dblSteps", type="str", default="0.0 1.0 75"
+
+
+args = vars(ap.parse_args())
 # end
 
 ##########################################################
@@ -82,13 +92,13 @@ if __name__ == '__main__':
 	}
 
 	objectTo = process_autozoom({
-		'dblShift': 100.0,
-		'dblZoom': 1.25,
+		'dblShift': args['dblShift'],
+		'dblZoom': args['dblZoom'],
 		'objectFrom': objectFrom
 	})
 
 	numpyResult = process_kenburns({
-		'dblSteps': numpy.linspace(0.0, 1.0, 75).tolist(),
+		'dblSteps': numpy.linspace(args['dblSteps'].split()[0], args['dblSteps'].split()[1], args['dblSteps'].split()[2]).tolist(),
 		'objectFrom': objectFrom,
 		'objectTo': objectTo,
 		'boolInpaint': True
