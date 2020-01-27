@@ -68,6 +68,8 @@ ap.add_argument("--out", required=True,
 args = vars(ap.parse_args())
 # end
 
+print(args['dblSteps'].split()[0])
+
 ##########################################################
 
 if __name__ == '__main__':
@@ -99,7 +101,7 @@ if __name__ == '__main__':
 	})
 
 	numpyResult = process_kenburns({
-		'dblSteps': numpy.linspace(args['dblSteps'].split()[0], args['dblSteps'].split()[1], args['dblSteps'].split()[2]).tolist(),
+		'dblSteps': numpy.linspace(float(args['dblSteps'].split()[0]), float(args['dblSteps'].split()[1]), float(args['dblSteps'].split()[2])).tolist(),
 		'objectFrom': objectFrom,
 		'objectTo': objectTo,
 		'boolInpaint': True
