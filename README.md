@@ -1,3 +1,7 @@
+
+* This is a modified version that allows the user to feed the model more params (In the official version are set by default) in order to obtain more "exaggerated" results as shown in this Twitter thread: https://twitter.com/alexeev_eu/status/1219655482501140480?s=20
+
+
 # 3d-ken-burns
 This is a reference implementation of 3D Ken Burns Effect from a Single Image [1] using PyTorch. Given a single input image, it animates this still image with a virtual camera scan and zoom subject to motion parallax. Should you be making use of our work, please cite our paper [1].
 
