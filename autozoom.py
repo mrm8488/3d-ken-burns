@@ -71,7 +71,7 @@ args = vars(ap.parse_args())
 ##########################################################
 
 if __name__ == '__main__':
-	numpyImage = cv2.imread(filename=arguments_strIn, flags=cv2.IMREAD_COLOR)
+	numpyImage = cv2.imread(filename=args['in'], flags=cv2.IMREAD_COLOR)
 
 	intWidth = numpyImage.shape[1]
 	intHeight = numpyImage.shape[0]
@@ -105,5 +105,5 @@ if __name__ == '__main__':
 		'boolInpaint': True
 	})
 
-	moviepy.editor.ImageSequenceClip(sequence=[ numpyFrame[:, :, ::-1] for numpyFrame in numpyResult + list(reversed(numpyResult))[1:] ], fps=25).write_videofile(arguments_strOut)
+	moviepy.editor.ImageSequenceClip(sequence=[ numpyFrame[:, :, ::-1] for numpyFrame in numpyResult + list(reversed(numpyResult))[1:] ], fps=25).write_videofile(args['out'])
 # end
