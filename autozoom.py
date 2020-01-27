@@ -61,7 +61,7 @@ ap.add_argument("--dblShift", required=False,
 ap.add_argument("--dblZoom", required=False,
 	help="dblZoom", type="float", default=1.25)
 ap.add_argument("--dblSteps", required=False,
-	help="dblSteps", type="str", default="0.0 1.0 75"
+	help="dblSteps", type="str", default="0.0 1.0 75")
 
 
 args = vars(ap.parse_args())
